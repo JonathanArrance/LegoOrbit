@@ -1,17 +1,15 @@
 #!/bin/bash
 
 mkdir -p ${DB_PATH}
+mkdir -p $(pwd)/ssl
+mkdir -p $(pwd)/json
 
-openssl req -newkey rsa:4096  -x509  -sha512  -days 365 -nodes -subj "/C=US/ST=NC/L=AnyTown/O=Home/CN=coinbasecollector.com" -out /etc/api/ssl/apicert_chain.crt -keyout /etc/api/ssl/api_private_key.key
+openssl req -newkey rsa:4096  -x509  -sha512  -days 365 -nodes -subj "/C=US/ST=NC/L=AnyTown/O=Home/CN=legoorbit" -out /etc/api/ssl/apicert_chain.crt -keyout /etc/api/ssl/api_private_key.key
 
-#create the tables
-#sqlite3 ${DB_PATH}/crypto.db "CREATE TABLE if not exists ValidCoins (ID INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, CoinName TEXT UNIQUE, CoinAbv TEXT UNIQUE, CoinTicker TEXT UNIQUE)"
-#sqlite3 ${DB_PATH}/crypto.db "CREATE TABLE if not exists cryptoHistory (ID INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, coin TEXT, timestamp TEXT, price TEXT)"
+sqlite3 ${DB_PATH}/lunar.db
+sqlite3 ${DB_PATH}/lunar.db "CREATE TABLE if not exists LunarDates (ID INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, timestamp TEXT, jsonfile TEXT, phase TEXT)"
 
-#sqlite3 ${DB_PATH}/crypto.db "INSERT OR IGNORE INTO ValidCoins (CoinName,CoinAbv,CoinTicker) VALUES ('Bitcoin','btc','btc-usd')"
-#sqlite3 ${DB_PATH}/crypto.db "INSERT OR IGNORE INTO ValidCoins (CoinName,CoinAbv,CoinTicker) VALUES ('Ethereum','eth','eth-usd')"
-#sqlite3 ${DB_PATH}/crypto.db "INSERT OR IGNORE INTO ValidCoins (CoinName,CoinAbv,CoinTicker) VALUES ('Dogecoin','doge','doge-usd')"
-#sqlite3 ${DB_PATH}/crypto.db "INSERT OR IGNORE INTO ValidCoins (CoinName,CoinAbv,CoinTicker) VALUES ('Chainlink','link','link-usd')"
+sqlite3 ${DB_PATH}/lunar.db "INSERT OR IGNORE INTO LunarDates (timestamp,jsonfile,phase) VALUES ('11111111111','example.json','crescent')"
 
 python3 /opt/orbit/orbit.py &
 

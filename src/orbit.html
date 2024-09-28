@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moon Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: #222;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 480px;
+        }
+        .emoji {
+            font-size: 3rem;
+            margin: 10px 0;
+        }
+        .info {
+            font-size: 1.2rem;
+        }
+        .timestamp {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji" id="moon-emoji">🌔</div>
+        <div class="info">
+            <p>Moonrise: <span class="timestamp" id="moonrise"></span></p>
+            <p>Moonset: <span class="timestamp" id="moonset"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Sample JSON data
+        const data = {
+            "moon": {
+                "moonrise": "18:51",
+                "moonrise_timestamp": 1726591860,
+                "moonset": "03:48",
+                "moonset_timestamp": 1726537680,
+                "emoji": "\ud83c\udf14"
+            }
+        };
+
+        // Convert timestamp to human-readable format
+        function formatTime(timeString) {
+            // Assuming time is in HH:MM format
+            return timeString;
+        }
+
+        // Set moonrise and moonset times and emoji
+        document.getElementById('moonrise').textContent = formatTime(data.moon.moonrise);
+        document.getElementById('moonset').textContent = formatTime(data.moon.moonset);
+        document.getElementById('moon-emoji').textContent = data.moon.emoji;
+    </script>
+</body>
+</html>
